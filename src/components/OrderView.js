@@ -28,14 +28,14 @@ function OrderView(){
      useEffect(()=>{
           let token = getCookie('_token');
           axios({
-               url:'http://localhost:8080/check-permission',
+               url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
                headers: {
                     Authorization: `Bear ${token}`
                }
           }).then(()=>{
                axios({
-                    url:'http://localhost:8080/get-orders',
+                    url:'https://socbe.herokuapp.com/get-orders',
                     method: 'GET',
                     headers: {
                          Authorization: `Bear ${token}`
@@ -44,7 +44,7 @@ function OrderView(){
                .then((data)=>{
                     setList(data.data.orders);
                     axios({
-                         url:'http://localhost:8080/get-cart',
+                         url:'https://socbe.herokuapp.com/get-cart',
                          method: 'GET',
                          headers: {
                               Authorization: `Bear ${token}`
@@ -60,7 +60,7 @@ function OrderView(){
      
                     })
                     axios({
-                         url:'http://localhost:8080/get-order-cart',
+                         url:'https://socbe.herokuapp.com/get-order-cart',
                          method: 'POST',
                          headers: {
                               Authorization: `Bear ${token}`
@@ -89,7 +89,7 @@ function OrderView(){
           if(vote_msg.current.value){
                let token = getCookie('_token');
                axios({
-                    url: 'http://localhost:8080/vote',
+                    url: 'https://socbe.herokuapp.com/vote',
                     method: 'POST',
                     headers:{
                          Authorization: `Bear ${token}`
@@ -122,7 +122,7 @@ function OrderView(){
      let check_ship = (order_status,order)=>{
           if(order_status == 2){
                axios({
-                    url: 'http://localhost:8080/change-status',
+                    url: 'https://socbe.herokuapp.com/change-status',
                     method: 'PATCH',
                     headers:{
                          Authorization: `Bear ${getCookie('_token')}`

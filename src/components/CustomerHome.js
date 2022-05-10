@@ -12,7 +12,7 @@ function CustomerHome(){
           let token = getCookie('_token');
           axios({
                method: 'GET',
-               url: 'http://localhost:8080/get-all-products',
+               url: 'https://socbe.herokuapp.com/get-all-products',
                headers:{
                     Authorization: `Bear ${token}`
                }

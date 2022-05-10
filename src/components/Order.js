@@ -34,14 +34,14 @@ function Order(){
           }
           let token = getCookie('_token');
           axios({
-               url:'http://localhost:8080/check-permission',
+               url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
                headers: {
                     Authorization: `Bear ${token}`
                }
           }).then(()=>{
                axios({
-                    url:'http://localhost:8080/get-address',
+                    url:'https://socbe.herokuapp.com/get-address',
                     method: 'GET',
                     headers: {
                          Authorization: `Bear ${token}`
@@ -98,7 +98,7 @@ function Order(){
                return item != -1;
           })
           axios({
-               url:'http://localhost:8080/order',
+               url:'https://socbe.herokuapp.com/order',
                method: 'POST',
                headers: {
                     Authorization: `Bear ${token}`
@@ -113,7 +113,7 @@ function Order(){
                if(order > -1){
                     if(pay == 0){
                          axios({
-                              url:'http://localhost:8080/order-pay',
+                              url:'https://socbe.herokuapp.com/order-pay',
                               method: 'POST',
                               headers: {
                                    Authorization: `Bear ${token}`

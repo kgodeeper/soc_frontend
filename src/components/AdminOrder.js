@@ -18,14 +18,14 @@ function AdminOrder(){
           let token = getCookie('_mntoken');
           if(token){
           axios({
-               url:'http://localhost:8080/check-permission',
+               url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
                headers: {
                     Authorization: `Bear ${token}`
                }
           }).then(()=>{
                axios({
-                    url:'http://localhost:8080/get-all-order',
+                    url:'https://socbe.herokuapp.com/get-all-order',
                     method: 'GET',
                     headers: {
                          Authorization: `Bear ${token}`
@@ -34,7 +34,7 @@ function AdminOrder(){
                .then((data)=>{
                     setList(data.data.orders);
                     axios({
-                         url:'http://localhost:8080/get-all-cart',
+                         url:'https://socbe.herokuapp.com/get-all-cart',
                          method: 'GET',
                          headers: {
                               Authorization: `Bear ${token}`
@@ -50,7 +50,7 @@ function AdminOrder(){
      
                     })
                     axios({
-                         url:'http://localhost:8080/get-all-cartorder',
+                         url:'https://socbe.herokuapp.com/get-all-cartorder',
                          method: 'GET',
                          headers: {
                               Authorization: `Bear ${token}`
@@ -79,7 +79,7 @@ function AdminOrder(){
 
      let change_status = (product)=>{
           axios({
-               url: 'http://localhost:8080/change-status',
+               url: 'https://socbe.herokuapp.com/change-status',
                method: 'PATCH',
                headers:{
                     Authorization: `Bear ${getCookie('_mntoken')}`

@@ -12,7 +12,7 @@ function CustomerCart(){
      useEffect(()=>{
           let token = getCookie('_token');
           axios({
-               url:'http://localhost:8080/check-permission',
+               url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
                headers: {
                     Authorization: `Bear ${token}`
@@ -23,7 +23,7 @@ function CustomerCart(){
           })
 
           axios({
-               url:`http://localhost:8080/get-carts`,
+               url:`https://socbe.herokuapp.com/get-carts`,
                method: 'GET',
                headers: {
                     Authorization: `Bear ${token}`
@@ -42,7 +42,7 @@ function CustomerCart(){
           if(quantity > 0){
                let token = getCookie('_token');
                axios({
-                    url:`http://localhost:8080/change-quantity`,
+                    url:`https://socbe.herokuapp.com/change-quantity`,
                     method: 'PATCH',
                     headers: {
                          Authorization: `Bear ${token}`
@@ -128,7 +128,7 @@ function CustomerCart(){
                liststr.splice(0,1);
                let token = getCookie('_token');
                axios({
-                    url:`http://localhost:8080/delete-carts`,
+                    url:`https://socbe.herokuapp.com/delete-carts`,
                     method: 'DELETE',
                     headers: {
                          Authorization: `Bear ${token}`

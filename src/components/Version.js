@@ -24,7 +24,7 @@ function Version(){
           if(iid.current.value && size.current.value && quan.current.value){
                if(quan.current.value > 0 ){
                     axios({
-                         url: 'http://localhost:8080/add-size',
+                         url: 'https://socbe.herokuapp.com/add-size',
                          method: 'POST',
                          headers:{
                               Authorization: `Bear ${getCookie('_mntoken')}`
@@ -54,7 +54,7 @@ function Version(){
           if(color.current.value && url.current.value){
                if(color.current.value.match(/^[#]{1}[0-9abcdefABCDEF]{6}/)){
                     axios({
-                         url: 'http://localhost:8080/add-item',
+                         url: 'https://socbe.herokuapp.com/add-item',
                          method: 'POST',
                          headers:{
                               Authorization: `Bear ${getCookie('_mntoken')}`
@@ -81,7 +81,7 @@ function Version(){
           let token = getCookie('_mntoken');
           if(token){
           axios({
-               url:'http://localhost:8080/check-permission',
+               url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
                headers: {
                     Authorization: `Bear ${token}`
@@ -89,7 +89,7 @@ function Version(){
           }).then((data)=>{
                if(data.data.position == 1){
                     axios({
-                         url:`http://localhost:8080/get-all-items-product/${id}`,
+                         url:`https://socbe.herokuapp.com/get-all-items-product/${id}`,
                          method: 'GET',
                          headers: {
                               Authorization: `Bear ${token}`
@@ -110,7 +110,7 @@ function Version(){
                          alert(error);
                     })
                     axios({
-                         url:`http://localhost:8080/get-all-item/${id}`,
+                         url:`https://socbe.herokuapp.com/get-all-item/${id}`,
                          method: 'GET',
                          headers: {
                               Authorization: `Bear ${token}`

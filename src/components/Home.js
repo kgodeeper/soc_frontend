@@ -11,7 +11,7 @@ function Home(){
      useEffect(()=>{
           let token = getCookie('_token');
           axios({
-               url:'http://localhost:8080/check-permission',
+               url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
                headers: {
                     Authorization: `Bear ${token}`

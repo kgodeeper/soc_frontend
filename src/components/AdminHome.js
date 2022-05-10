@@ -28,7 +28,7 @@ function AdminHome(){
           let token = getCookie('_mntoken');
           if(token){
                axios({
-                    url:'http://localhost:8080/check-permission',
+                    url:'https://socbe.herokuapp.com/check-permission',
                     method: 'GET',
                     headers: {
                          Authorization: `Bear ${token}`
@@ -36,7 +36,7 @@ function AdminHome(){
                }).then((data)=>{
                     if(data.data.position == 1){
                          axios({
-                              url:'http://localhost:8080/get-all-products',
+                              url:'https://socbe.herokuapp.com/get-all-products',
                               method: 'GET',
                               headers: {
                                    Authorization: `Bear ${token}`
@@ -87,7 +87,7 @@ function AdminHome(){
           let desctxt = desc.current.value;
           if(nametxt && brandtxt && yeartxt && gendertxt && pricetxt && urltxt && desctxt){
                axios({
-                    url:'http://localhost:8080/add-product',
+                    url:'https://socbe.herokuapp.com/add-product',
                     method:'POST',
                     headers:{
                          Authorization: `Bear ${getCookie('_mntoken')}`
@@ -142,7 +142,7 @@ function AdminHome(){
           let desctxt = desc.current.value;
           if(nametxt && brandtxt && yeartxt && gendertxt && pricetxt && urltxt && desctxt){
                axios({
-                    url:'http://localhost:8080/update-product',
+                    url:'https://socbe.herokuapp.com/update-product',
                     method:'PATCH',
                     headers:{
                          Authorization: `Bear ${getCookie('_mntoken')}`
@@ -166,7 +166,7 @@ function AdminHome(){
           if(select.trim() != "-1"){
                let list_rmv = select.split('-1')[1].trim().split(' ');
                axios({
-                    url:'http://localhost:8080/delete-products',
+                    url:'https://socbe.herokuapp.com/delete-products',
                     method: 'DELETE',
                     headers:{
                          Authorization: `Bear ${getCookie('_mntoken')}`

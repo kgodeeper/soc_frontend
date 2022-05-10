@@ -21,14 +21,14 @@ function Product(){
      useEffect(()=>{
           let token = getCookie('_token');
           axios({
-               url:'http://localhost:8080/check-permission',
+               url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
                headers: {
                     Authorization: `Bear ${token}`
                }
           }).then(()=>{
                axios({
-                    url:`http://localhost:8080/get-product/${id}`,
+                    url:`https://socbe.herokuapp.com/get-product/${id}`,
                     method: 'GET',
                     headers: {
                          Authorization: `Bear ${token}`
@@ -36,7 +36,7 @@ function Product(){
                }).then((data)=>{
                     setProduct(()=>data.data.product);
                     axios({
-                         url:`http://localhost:8080/get-vote/${id}`,
+                         url:`https://socbe.herokuapp.com/get-vote/${id}`,
                          method: 'GET',
                          headers:{
                               Authorization: `Bear ${token}`
@@ -48,7 +48,7 @@ function Product(){
                }).catch(()=>{
                })
                axios({
-                    url:`http://localhost:8080/get-all-items/${id}`,
+                    url:`https://socbe.herokuapp.com/get-all-items/${id}`,
                     method: 'GET',
                     headers: {
                          Authorization: `Bear ${token}`
@@ -59,7 +59,7 @@ function Product(){
                          setItemActive(data.data.items[0]);
                     }catch{}
                     axios({
-                         url:`http://localhost:8080/get-all-sizes/${data.data.items[0].id}`,
+                         url:`https://socbe.herokuapp.com/get-all-sizes/${data.data.items[0].id}`,
                          method: 'GET',
                          headers: {
                               Authorization: `Bear ${token}`
@@ -103,7 +103,7 @@ function Product(){
                setItemActive(item.find((it)=>{return it.id == i}));
                let token = getCookie('_token');
                axios({
-                    url:`http://localhost:8080/get-all-sizes/${i}`,
+                    url:`https://socbe.herokuapp.com/get-all-sizes/${i}`,
                     method: 'GET',
                     headers: {
                          Authorization: `Bear ${token}`
@@ -159,7 +159,7 @@ function Product(){
           console.log({product,size:sizeActive,color:itemActive.id,quantity:quan})
           axios({
                method: 'POST',
-               url:'http://localhost:8080/add-cart',
+               url:'https://socbe.herokuapp.com/add-cart',
                headers:{
                     Authorization: `Bear ${getCookie('_token')}`
                },

@@ -12,7 +12,7 @@ function Admin(){
           let password = passtxt.current.value;
           if(username && password){
                axios({
-                    url:'http://localhost:8080/user-login',
+                    url:'https://socbe.herokuapp.com/user-login',
                     method:'POST',
                     data:{
                          usertxt:username,
