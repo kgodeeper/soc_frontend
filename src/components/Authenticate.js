@@ -22,7 +22,7 @@ function Authenticate(){
           let token = getCookie('_token');
           if(token){
                axios({
-                    url:'http://localhost:8080/check-permission',
+                    url:'https://socbe.herokuapp.com/check-permission',
                     method: 'GET',
                     headers: {
                          Authorization: `Bear ${token}`
@@ -62,7 +62,7 @@ function Authenticate(){
           let password = passtxt.current.value;
           if(username && password){
                axios({
-                    url:'http://localhost:8080/user-login',
+                    url:'https://socbe.herokuapp.com/user-login',
                     method:'POST',
                     data:{
                          usertxt:username,
@@ -94,7 +94,7 @@ function Authenticate(){
           if(username && password && repass){
                if(repass === password){
                     axios({
-                         url:'http://localhost:8080/user-sign',
+                         url:'https://socbe.herokuapp.com/user-sign',
                          method:'POST',
                          data:{
                               usertxt:username,
