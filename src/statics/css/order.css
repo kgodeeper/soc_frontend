@@ -1,0 +1,41 @@
+.custome-select{
+     width: 85%;
+     padding: 5px 10px;
+     font-size: 14px;
+     font-weight: bold;
+     border: 1px solid #333;
+     outline: none;
+}
+.custome-select option{
+     font-weight: 500;
+}
+.custome-input{
+     width: 100%;
+     font-weight: normal !important;
+     padding: 5px 10px;
+     font-size: 14px;
+     border: 1px solid #333;
+     outline: none;
+}
+.order-btn{
+     width: 100%;
+     border: 2px solid #f64c10;
+     color: #f64c10;
+     padding: 10px 10px;
+     text-align: center;
+     text-transform: uppercase;
+     font-weight: bold;
+     transition: .4s;
+}
+.order-btn:hover{
+     background-color: #f64c10;
+     color: white;
+}
+.order-info .product-info{
+     font-size: 14px;
+}
+.order-color{
+     background: var(--color);
+     border: 1px solid #aaa;
+     padding: 5px;
+}

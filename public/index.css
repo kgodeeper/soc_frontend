@@ -1,0 +1,68 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap');
+
+*{
+     padding: 0;
+     margin: 0;
+     box-sizing: border-box;
+     font-family: 'Work Sans', sans-serif;
+}
+
+.big-title{
+     font-size: 50px !important;
+     font-weight: bold;
+}
+.med-title{
+     font-size: 20px !important;
+     font-weight: bolder;
+}
+.med-icon{
+     font-size: 30px !important;
+     margin: 5px 5px;
+}
+.page-container{
+     height: 100vh;
+     min-height: 600px;
+}
+.csinput{
+     padding: 8px 10px;
+     background-color: #eee;
+     font-size: 14px !important;
+     outline: none;
+     border: none;
+     width: 100%;
+     margin: 5px 0px;
+}
+.cs-submit-btn{
+     background-color: #ea4335;
+     padding: 8px 0px;
+     text-align: center;
+     border-radius: 3px;
+     font-weight: bolder;
+     color: white;
+     margin: 5px 0px;
+}
+/* Update css */
+.invisible-bound-inp{
+     outline: none;
+     border: none;
+     background-color: transparent;
+     color: black;
+     height: 200px;
+}
+
+.btn-success,.btn-secondary{
+     font-size: 14px !important;
+}
+
+::placeholder{
+     font-weight: 300 !important;
+}
+
+.ic-active{
+     color: #ea4335;
+}
+.user-cart i:hover{
+     color: #ea4335;
+     transition: .3s;
+}

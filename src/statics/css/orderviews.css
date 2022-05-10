@@ -1,0 +1,92 @@
+.status-bar{
+     height: 20px !important;
+}
+.title-bar{
+     width: calc(50% + 50px)
+}
+.viewcard{
+     border-radius: 10px;
+     background-color: #f0f1f2;
+}
+.bar{
+     height: 4px;
+     border-radius: 4px;
+     background-color: #e3e3e3;
+}
+.moc{
+     height: 20px;
+     width: 20px;
+     border-radius: 50%;
+     background-color: #e3e3e3;
+     font-size: 12px;
+     font-weight: bold;
+     text-align: center;
+}
+.prg{
+     position: absolute;
+     left:0;
+     height: 4px;
+     width: var(--percent);
+     background-color: #ea4335;
+     border-radius: 5px;
+}
+.status-bar .active{
+     background-color: #ea4335;
+     color: white;
+}
+.ok{
+     background-color: #ea4335 !important;
+     border: 2px solid #ea4335 !important;
+     color: white !important;
+     cursor: pointer !important;
+}
+.ok1{
+     cursor:pointer !important;
+}
+.moc-1{
+     left: 0%;
+}
+.moc-2{
+     left: 33%;
+}
+.moc-3{
+     left: 66%;
+}
+.moc-4{
+     right: 0%;
+}
+.custome-btn{
+     padding: 5px 10px;
+     font-size: 14px;
+     font-weight: bold;
+     color: #aaa;
+     border: 2px solid #aaa;
+     cursor: not-allowed;
+}
+.vote-container{
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0,0,0,0.7);
+}
+.star-range i{
+     font-size: 20px;
+}
+textarea{
+     width: 380px;
+     height: 150px;
+     outline: none;
+     padding: 5px;
+     font-size: 14px !important;
+     resize: none !important;
+}
+.vote-container p{
+     font-size: 14px;
+}
+.viewcard{
+     font-size: 14px !important;
+}
+.success{
+     border-color: #198754 !important;
+     background-color: #198754 !important;
+     color: white !important;
+}

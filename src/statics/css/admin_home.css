@@ -1,0 +1,126 @@
+.admin-home i{
+     font-family: 'Font Awesome 6 Free' !important;
+}
+
+.admin-home{
+     height: 100vh;
+     min-height: 500px;
+     background-color: #567086;
+     color: white !important;
+     user-select: none;
+}
+
+a{
+     color: inherit !important;
+     text-decoration: none !important;
+}
+
+.nav-link{
+     display: flex !important;
+     justify-content: center !important;
+     align-items: center !important;
+     flex-direction: column !important;
+     margin: 0px 10px;
+}
+
+.nav-link i{
+     font-size: 20px;
+}
+
+.admin-home .active{
+     color: #f5a623 !important;
+}
+
+.admin-home .color{
+     width: 60px;
+     height: 50px;
+     border: 1px solid #aaa;
+     margin: auto;
+     margin-top: 6px;
+     background: var(--color);
+}
+nav{
+     height: fit-content !important;
+     padding: 10px 0px !important;
+     background-color: #455c71 !important;
+}
+.admin-home tr td{
+     height: 60px;
+     line-height: 60px;
+}
+
+.table-bound{
+     background-color: #455c71 !important;
+     height: 500px !important;
+     overflow-y: scroll;
+}
+
+.my-btn{
+     background-color: #f5a623;
+     color: white;
+     text-align: center;
+     font-size: 14px;
+     text-transform: uppercase;
+     padding: 10px;
+     margin: 10px auto;
+}
+
+.my-btn-1{
+     background-color: #f5a623;
+     width: 47%;
+     display: inline-block;
+     color: white;
+     text-align: center;
+     font-size: 14px;
+     text-transform: uppercase;
+     padding: 10px;
+     margin: 10px auto;
+}
+
+.admin-home textarea{
+     height: 100px !important;
+     color: white !important;
+}
+
+.product-form{
+     height: 100vh !important;
+     background-color: rgba(0,0,0,0.75);
+}
+.p-form{
+     width: 500px;
+     height: 600px;
+     background-color: #567086 !important;
+     border-radius: 10px !important;
+}
+
+
+.my-input{
+     padding: 5px 10px;
+     outline:none;
+     background-color: rgba(0,0,0,0.35);
+     border: 1px solid #aaa;
+     width: 100%;
+     display: inline-block;
+     color: white;
+}
+
+.my-input-1{
+     padding: 5px 10px;
+     outline:none;
+     background-color: rgba(0,0,0,0.35);
+     border: 1px solid #aaa;
+     width: 50%;
+     margin: 2px auto !important;
+     display: inline-block;
+     color: white;
+}
+
+.info{
+     height: 500px;
+     overflow-y: scroll;
+     padding: 0px 10px;
+}
+
+::placeholder{
+     color: #aaa;
+}

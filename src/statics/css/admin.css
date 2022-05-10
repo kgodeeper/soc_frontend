@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+.admin-home{
+     font-size: 14px;
+}
+.admin-home i{
+     font-family: 'Font Awesome 6 Free' !important;
+}
+.admin-home{
+     font-family: 'Roboto Condensed', sans-serif;
+}
+.login-wrap{
+     width: 350px !important;
+     margin: auto;
+}
