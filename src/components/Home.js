@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { getCookie } from "./Cookie";
 import axios from "axios";
 import {Loader} from './Loader';
-
 function Home(){
      let [home,setHome] = useState();
 
@@ -17,8 +16,8 @@ function Home(){
                headers: {
                     Authorization: `Bear ${token}`
                }
-          }).then(()=>{
-               setHome(CustomerHome);
+          }).then((data)=>{
+               setHome(()=><CustomerHome/>);
           }).catch(()=>{
                window.location.replace('/');
           })
