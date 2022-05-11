@@ -2,6 +2,7 @@ import '../statics/css/orderviews.css'
 import {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import {getCookie,eraseCookie} from './Cookie';
+import Loader from './Loader';
 
 function OrderView(){
      let [list,setList] = useState([]);
@@ -9,6 +10,7 @@ function OrderView(){
      let [cart,setCart] = useState([]);
      let [vote,setVote] = useState(<></>)
      let [voteForm,setVoteForm] = useState(<></>);
+     let [load,setLoad] = useState(<></>);
      let vote_msg = useRef();
 
      let [showLg,setShowLg]   = useState(false);
@@ -27,6 +29,8 @@ function OrderView(){
 
      useEffect(()=>{
           let token = getCookie('_token');
+          if(token){
+          setLoad(Loader);
           axios({
                url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
@@ -70,6 +74,7 @@ function OrderView(){
                          }
                     })
                     .then((data)=>{
+                         setLoad(<></>);
                          setCart_Order(data.data.order_carts);
                     })
                     .catch(()=>{
@@ -83,11 +88,15 @@ function OrderView(){
           .catch((error)=>{
                window.location.replace('/');
           })
+          }else{
+               window.location.replace('/');
+          }
      },[]);
 
      let send_vote = (rate,product,order)=>{
           if(vote_msg.current.value){
                let token = getCookie('_token');
+               setLoad(Loader);
                axios({
                     url: 'https://socbe.herokuapp.com/vote',
                     method: 'POST',
@@ -101,6 +110,7 @@ function OrderView(){
                          order
                     }
                }).then(()=>{
+                    setLoad(<></>);
                     window.location.reload();
                }).catch((error)=>{
                     alert(error)
@@ -121,6 +131,7 @@ function OrderView(){
      
      let check_ship = (order_status,order)=>{
           if(order_status == 2){
+               setLoad(Loader);
                axios({
                     url: 'https://socbe.herokuapp.com/change-status',
                     method: 'PATCH',
@@ -132,6 +143,7 @@ function OrderView(){
                          status: 3
                     }
                }).then(()=>{
+                    setLoad(<></>);
                     window.location.reload();
                }).catch(()=>{
                     alert('error')
@@ -312,6 +324,7 @@ function OrderView(){
 
      return(
           <>
+          {load}
           {voteForm}
           <div className="container">
                <div className="d-flex w-100 flex-column justify-content-center align-items-center navigation-bar">
@@ -341,7 +354,7 @@ function OrderView(){
                               {log_element}
                          </span>
                          <i className="fa-brands fa-opencart mx-3" onClick={()=>window.location.replace('/gio-hang')}></i>
-                         <i class="fa-regular fa-clipboard mx-3 ic-active"></i>
+                         <i className="fa-regular fa-clipboard mx-3 ic-active"></i>
                     </div>
                     </div>
                     <div className="orderview w-100">

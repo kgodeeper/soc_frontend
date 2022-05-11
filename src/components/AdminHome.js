@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import React from 'react';
 import axios from 'axios';
 import { getCookie, eraseCookie } from './Cookie';
+import Loader from './Loader';
 
 function AdminHome(){
      let [type,setType] = useState();
@@ -11,6 +12,7 @@ function AdminHome(){
      let [product,setProduct] = useState();
      let [action, setAction] = useState("Thêm sản phẩm");
      let [form,setForm] = useState(<></>);
+     let [load,setLoad] = useState(Loader);
 
      let name = useRef();
      let brand = useRef();
@@ -27,6 +29,7 @@ function AdminHome(){
      useEffect(()=>{
           let token = getCookie('_mntoken');
           if(token){
+               setLoad(Loader);
                axios({
                     url:'https://socbe.herokuapp.com/check-permission',
                     method: 'GET',
@@ -49,8 +52,10 @@ function AdminHome(){
                     }else{
                          window.location.replace('/quan-ly');
                     }
+                    setLoad(<></>);
                }).catch((error)=>{
                     alert(error);
+                    window.location.replace('/quan-ly');
                })
           }else{
                window.location.replace('/quan-ly')
@@ -86,6 +91,7 @@ function AdminHome(){
           let urltxt = url.current.value;
           let desctxt = desc.current.value;
           if(nametxt && brandtxt && yeartxt && gendertxt && pricetxt && urltxt && desctxt){
+               setLoad(Loader);
                axios({
                     url:'https://socbe.herokuapp.com/add-product',
                     method:'POST',
@@ -97,11 +103,15 @@ function AdminHome(){
                     }
                }).then(()=>{
                     cleanRef();
+                    setLoad(<></>);
                     alert('Thành công');
+                    window.location.reload();
                }).catch((error)=>{
+                    setLoad(<></>);
                     alert(error);
                })
           }else{
+               setLoad(<></>);
                alert('Hãy nhập đủ trường')
           }
      }
@@ -141,6 +151,7 @@ function AdminHome(){
           let urltxt = url.current.value;
           let desctxt = desc.current.value;
           if(nametxt && brandtxt && yeartxt && gendertxt && pricetxt && urltxt && desctxt){
+               setLoad(Loader);
                axios({
                     url:'https://socbe.herokuapp.com/update-product',
                     method:'PATCH',
@@ -152,12 +163,15 @@ function AdminHome(){
                     }
                }).then(()=>{
                     cleanRef();
+                    setLoad(<></>);
                     alert('Thành công');
                     window.location.reload();
                }).catch((error)=>{
+                    setLoad(<></>);
                     alert(error);
                })
           }else{
+               setLoad(<></>);
                alert('Hãy nhập đủ trường')
           }
      }
@@ -165,6 +179,7 @@ function AdminHome(){
      let remove_product = ()=>{
           if(select.trim() != "-1"){
                let list_rmv = select.split('-1')[1].trim().split(' ');
+               setLoad(Loader);
                axios({
                     url:'https://socbe.herokuapp.com/delete-products',
                     method: 'DELETE',
@@ -175,11 +190,14 @@ function AdminHome(){
                          products:list_rmv
                     }
                }).then(()=>{
+                    setLoad(<></>);
                     window.location.reload();
                }).catch(error=>{
+                    setLoad(<></>);
                     alert(error);
                })
           }else{
+               setLoad(<></>);
                alert('Hãy chọn sản phẩm trước');
           }
      }
@@ -228,6 +246,7 @@ function AdminHome(){
 
      return(
           <>
+          {load}
           <div className="w-100 admin-home">
                <nav className="w-100">
                     <div className="container d-flex justify-content-between align-items-center">

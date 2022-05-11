@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import { getCookie,eraseCookie} from './Cookie';
 import axios from 'axios';
+import Loader from './Loader';
 
 function Product(){
      let {id} = useParams();
@@ -17,9 +18,12 @@ function Product(){
      let [quan,setQuan] = useState(1);
      let [colorActive,setColorActive] = useState(0);
      let [showLg,setShowLg]   = useState(false);
+     let [load,setLoad] = useState(<></>);
 
      useEffect(()=>{
           let token = getCookie('_token');
+          if(token){
+          setLoad(Loader)
           axios({
                url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
@@ -65,6 +69,7 @@ function Product(){
                               Authorization: `Bear ${token}`
                          }
                     }).then((data)=>{
+                         setLoad(<></>);
                          setSize(()=>data.data.sizes);
                          try{
                               let index = 0;
@@ -83,7 +88,7 @@ function Product(){
           }).catch(()=>{
                window.location.replace('/xac-thuc');
           })
-          
+          }
      },[])
 
      let toggle_desc = ()=>{
@@ -156,7 +161,7 @@ function Product(){
      }):null;
 
      let add_cart = ()=>{
-          console.log({product,size:sizeActive,color:itemActive.id,quantity:quan})
+          setLoad(Loader);
           axios({
                method: 'POST',
                url:'https://socbe.herokuapp.com/add-cart',
@@ -170,6 +175,7 @@ function Product(){
                     quantity:quan
                }
           }).then(()=>{
+               setLoad(<></>);
                window.location.replace('/gio-hang');
           }).catch((error)=>{
                alert(error);
@@ -204,7 +210,8 @@ function Product(){
           </div>) : null;
 
      return(
-          <>
+          <>  
+               {load}
                <div className="container position-relative">
                     <div className="d-flex w-100 flex-column justify-content-center align-items-center navigation-bar">
                          <div className="row w-100" style={{borderBottom: "2px solid #eee"}}>
@@ -233,14 +240,14 @@ function Product(){
                               {log_element}
                          </span>
                          <i className="fa-brands fa-opencart mx-3" onClick={()=>window.location.replace('/gio-hang')}></i>
-                         <i class="fa-regular fa-clipboard mx-3" onClick={()=>window.location.replace('/don-hang')}></i>
+                         <i className="fa-regular fa-clipboard mx-3" onClick={()=>window.location.replace('/don-hang')}></i>
                     </div>
                </div>
                <div className="category text-start w-100 py-2" style={{fontWeight: "bold"}}>| Xem sản phẩm</div>
                <div className="w-100 row m-0 p-0 px-2">
                     <div className="col-lg-8 m-0 p-0 product">
                          <div className="product-img position-relative">
-                              <img src={itemActive ? itemActive ? itemActive.url : null : null} alt="shoes" width="100%" height="100%"/>
+                              <img src={itemActive ? itemActive ? itemActive.url : null : null} alt="shoes" width="100%" height="104%"/>
                               <div className="product-name position-absolute">
                                    {product ? product.name : null}
                               </div>

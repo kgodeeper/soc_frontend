@@ -1,15 +1,19 @@
 import axios from "axios";
 import { createFactory, useEffect, useState } from "react";
 import { getCookie, eraseCookie} from "./Cookie";
+import Loader from './Loader';
 
 function CustomerHome(){
      let [product,setProduct] = useState();
      let [showPrd,setShowPrd] = useState();
      let [page,setPage]       = useState(1);
      let [showLg,setShowLg]   = useState(false);
+     let [load,setLoad]       = useState(<></>);
 
      useEffect(()=>{
           let token = getCookie('_token');
+          if(token){
+          setLoad(Loader);
           axios({
                method: 'GET',
                url: 'https://socbe.herokuapp.com/get-all-products',
@@ -18,12 +22,16 @@ function CustomerHome(){
                }
           })
           .then((data)=>{
+               setLoad(<></>);
                setProduct(()=>data.data.products);
                setShowPrd(()=>data.data.products);
           })
           .catch((error)=>{
                console.log(error);
           })
+     }else{
+          window.location.replace('/');
+     }
      },[]);
 
      let products = showPrd ? product.map((item,index)=>{
@@ -72,6 +80,7 @@ function CustomerHome(){
 
      return(
           <>
+          {load}
           <div className="container">
           <div className="d-flex w-100 flex-column justify-content-center align-items-center navigation-bar">
                <div className="row w-100" style={{borderBottom: "2px solid #eee"}}>
@@ -100,7 +109,7 @@ function CustomerHome(){
                               {log_element}
                          </span>
                          <i className="fa-brands fa-opencart mx-3" onClick={()=>window.location.replace('/gio-hang')}></i>
-                         <i class="fa-regular fa-clipboard mx-3" onClick={()=>window.location.replace('/don-hang')}></i>
+                         <i className="fa-regular fa-clipboard mx-3" onClick={()=>window.location.replace('/don-hang')}></i>
                     </div>
                </div>
                <div className="row w-100 d-flex justify-content-center align-items-center body-container">
@@ -155,7 +164,7 @@ function CustomerHome(){
                          </div>
                          <hr className="m-0"/>
                          <div className="list-products container">
-                              <div className="row w-100 d-flex justify-content-center align-items-center m-0 px-4 pt-3 pb-1">
+                              <div className="row w-100 d-flex justify-content-start align-items-center m-0 px-4 pt-3 pb-1">
                                    {products}
                               </div>
                          </div>

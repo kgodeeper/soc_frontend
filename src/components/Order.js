@@ -3,6 +3,7 @@ import {useLocation} from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import {getCookie,eraseCookie} from './Cookie';
+import Loader from './Loader';
 
 function Order(){
      let orders = useLocation().state.orders;
@@ -10,6 +11,7 @@ function Order(){
 
      let [addr,setAddr] = useState();
      let [sltAddr,setSltAddr] = useState();
+     let [load,setLoad] = useState(<></>);
 
      let addrRef = useRef();
      let payRef = useRef();
@@ -33,6 +35,8 @@ function Order(){
                window.location.replace('/gio-hang');
           }
           let token = getCookie('_token');
+          if(token){
+          setLoad(Loader);
           axios({
                url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
@@ -48,12 +52,16 @@ function Order(){
                     }
                })
                .then((data)=>{
+                    setLoad(<></>);
                     setAddr(data.data.addresses);
                     setSltAddr(data.data.addresses[0]);
                })
           }).catch(()=>{
                window.location.replace('/');
           })
+     }else{
+          window.location.replace('/');
+     }
      },[]);
      
      let list_order = carts ? carts.filter((item)=>{
@@ -97,6 +105,7 @@ function Order(){
           cart = cart.filter((item)=>{
                return item != -1;
           })
+          setLoad(Loader);
           axios({
                url:'https://socbe.herokuapp.com/order',
                method: 'POST',
@@ -112,6 +121,7 @@ function Order(){
                let order = data.data.order;
                if(order > -1){
                     if(pay == 0){
+                         setLoad(Loader);
                          axios({
                               url:'https://socbe.herokuapp.com/order-pay',
                               method: 'POST',
@@ -125,6 +135,8 @@ function Order(){
                          }).then((data)=>{
                               window.location.replace(data.data.pay_link);
                          })
+                    }else{
+                         window.location.replace('/don-hang');
                     }
                }else{
                     alert('Số lượng sản phẩm vượt quá số lượng còn lại');
@@ -136,6 +148,7 @@ function Order(){
 
      return(
           <>
+          {load}
           <div className="container position-relative">
                <div className="d-flex w-100 flex-column justify-content-center align-items-center navigation-bar">
                     <div className="row w-100" style={{borderBottom: "2px solid #eee"}}>
@@ -164,7 +177,7 @@ function Order(){
                                    {log_element}
                               </span>
                               <i className="fa-brands fa-opencart mx-3" onClick={()=>window.location.replace('/gio-hang')}></i>
-                              <i class="fa-regular fa-clipboard mx-3" onClick={()=>window.location.replace('/don-hang')}></i>
+                              <i className="fa-regular fa-clipboard mx-3" onClick={()=>window.location.replace('/don-hang')}></i>
                          </div>
                     </div>
                     <div className="order w-100">

@@ -10,6 +10,7 @@ import Admin from './Admin';
 import AdminHome from './AdminHome';
 import AdminOrder from './AdminOrder';
 import Version from './Version';
+import Loader from './Loader';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/gio-hang" element={<CustomerCart/>}></Route>
         <Route exact path="/dat-hang" element={<Order/>}></Route>
         <Route exact path="/don-hang" element={<OrderView/>}></Route>
+        <Route exact path="/loader" element={<Loader/>}></Route>
         <Route path="/*" element={<></>}></Route>
       </Routes>
     </BrowserRouter>

@@ -3,12 +3,14 @@ import { useParams } from "react-router";
 import {useEffect, useRef, useState} from 'react';
 import {getCookie,eraseCookie} from './Cookie';
 import axios from 'axios';
+import Loader from './Loader';
 
 function Version(){
      let {id} = useParams();
      let [item,setItem] = useState();
      let [allitem,setAllItem] = useState();
      let [product,setProduct] = useState([]);
+     let [load,setLoad] = useState(Loader);
      
      let color = useRef();
      let url = useRef();
@@ -23,6 +25,7 @@ function Version(){
      let add_size = ()=>{
           if(iid.current.value && size.current.value && quan.current.value){
                if(quan.current.value > 0 ){
+                    setLoad(Loader);
                     axios({
                          url: 'https://socbe.herokuapp.com/add-size',
                          method: 'POST',
@@ -38,7 +41,7 @@ function Version(){
                          if(data.data.status == true) window.location.reload();
                          else{
                               alert('Phiên bản với kích cỡ này đã tồn tại');
-                         }
+                    }setLoad(<></>);
                     }).catch((error)=>{
                          alert(error);
                     })
@@ -53,6 +56,7 @@ function Version(){
      let add_item = ()=>{
           if(color.current.value && url.current.value){
                if(color.current.value.match(/^[#]{1}[0-9abcdefABCDEF]{6}/)){
+                    setLoad(Loader);
                     axios({
                          url: 'https://socbe.herokuapp.com/add-item',
                          method: 'POST',
@@ -65,6 +69,7 @@ function Version(){
                               url: url.current.value
                          }
                     }).then(()=>{
+                         setLoad(<></>);
                          window.location.reload();
                     }).catch((error)=>{
                          alert(error);
@@ -80,6 +85,7 @@ function Version(){
      useEffect(()=>{
           let token = getCookie('_mntoken');
           if(token){
+          setLoad(Loader);
           axios({
                url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
@@ -123,6 +129,7 @@ function Version(){
                }else{
                     window.location.replace('/quan-ly');
                }
+               setLoad(<></>);
           }).catch((error)=>{
                alert(error);
           })
@@ -165,7 +172,7 @@ function Version(){
                return(
                     <tr key={idx}>
                          <td>{it.size}</td>
-                         <td>{it.quantity}</td>
+                         <td>{it.quantity < 10 ? '0' + it.quantity : it.quantity}</td>
                     </tr>
                )
           }):null;
@@ -188,6 +195,7 @@ function Version(){
 
      return(
           <>
+               {load}
                <div className="w-100 admin-home">
                <nav className="w-100">
                     <div className="container d-flex justify-content-between align-items-center">

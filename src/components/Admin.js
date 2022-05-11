@@ -1,16 +1,19 @@
 import '../statics/css/admin.css'
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import { setCookie } from './Cookie';
 import axios from 'axios';
+import Loader from './Loader';
 
 function Admin(){
      let usertxt  = useRef();
      let passtxt  = useRef();
+     let [load,setLoad] = useState(<></>);
 
      let login = ()=>{
           let username = usertxt.current.value;
           let password = passtxt.current.value;
           if(username && password){
+               setLoad(Loader);
                axios({
                     url:'https://socbe.herokuapp.com/user-login',
                     method:'POST',
@@ -32,13 +35,17 @@ function Admin(){
                     }else{
                          alert('Tên đăng nhập hoặc mật khẩu không chính xác');
                     }
+                    setLoad(<></>);
                })
           }else{
+               setLoad(<></>);
                alert('Tên đăng nhập và mật khẩu không được để rỗng');
           }
      }
 
      return(
+          <>
+          {load}
           <div className="container d-flex justify-content-center align-items-center">
 			<div className="row justify-content-center align-items-center">
 				<div className="w-100">
@@ -62,6 +69,7 @@ function Admin(){
 		          </div>
 			</div>
 		</div>
+          </>
      )
 }
 

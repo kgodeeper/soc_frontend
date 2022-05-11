@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom';
 import '../statics/css/cart.css'
 import axios from 'axios'
 import {getCookie,eraseCookie} from './Cookie';
+import Loader from './Loader';
 
 function CustomerCart(){
      const [cart,setCart] = useState();
      const [listSLT, setListSLT] = useState(" -1");
      const [showLg,setShowLg]   = useState(false);
+     const [load,setLoad] = useState(<></>);
 
      useEffect(()=>{
           let token = getCookie('_token');
+          if(token){
+          setLoad(Loader);
           axios({
                url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
@@ -21,7 +25,6 @@ function CustomerCart(){
           }).catch(()=>{
                window.location.replace('/');
           })
-
           axios({
                url:`https://socbe.herokuapp.com/get-carts`,
                method: 'GET',
@@ -30,12 +33,15 @@ function CustomerCart(){
                }
           })
           .then((data)=>{
-               console.log(data.data.carts);
+               setLoad(<></>);
                setCart(data.data.carts);
           })
           .catch(()=>{
                window.location.replace('/');
           })
+          }else{
+               window.location.replace('/');
+          }
      },[]);
 
      const change_cart = (cart,quantity)=>{
@@ -53,7 +59,6 @@ function CustomerCart(){
                     }
                })
                .then((data)=>{
-                    console.log(data.data.carts);
                     setCart(data.data.carts);
                })
                .catch(()=>{
@@ -127,6 +132,7 @@ function CustomerCart(){
                let liststr = listSLT.split(' ');
                liststr.splice(0,1);
                let token = getCookie('_token');
+               setLoad(Loader);
                axios({
                     url:`https://socbe.herokuapp.com/delete-carts`,
                     method: 'DELETE',
@@ -138,6 +144,7 @@ function CustomerCart(){
                     }
                })
                .then((data)=>{
+                    setLoad(<></>);
                     setCart(data.data.carts);
                })
                .catch(()=>{
@@ -148,6 +155,7 @@ function CustomerCart(){
 
      return(
           <>
+          {load}
           <div className="container position-relative">
                <div className="d-flex w-100 flex-column justify-content-center align-items-center navigation-bar">
                     <div className="row w-100" style={{borderBottom: "2px solid #eee"}}>
@@ -176,7 +184,7 @@ function CustomerCart(){
                                    {log_element}
                               </span>
                               <i className="fa-brands fa-opencart mx-3 ic-active"></i>
-                              <i class="fa-regular fa-clipboard mx-3" onClick={()=>window.location.replace('/don-hang')}></i>
+                              <i className="fa-regular fa-clipboard mx-3" onClick={()=>window.location.replace('/don-hang')}></i>
                          </div>
                     </div>
                     <div className="cart mt-2 w-100">

@@ -4,11 +4,13 @@ import {setCookie} from './Cookie';
 import { useEffect } from 'react';
 import { getCookie } from './Cookie';
 import axios from 'axios';
+import Loader from './Loader';
 
 function Authenticate(){
      let [current,setCurrent]   = useState(true);
      let [remember,setRemember] = useState(false);
      let [checked,setChecked]   = useState(<></>);
+     let [load,setLoad]         = useState(<></>);
 
      let usertxt  = useRef();
      let passtxt  = useRef();
@@ -21,15 +23,18 @@ function Authenticate(){
      useEffect(()=>{
           let token = getCookie('_token');
           if(token){
+               setLoad(Loader);
                axios({
                     url:'https://socbe.herokuapp.com/check-permission',
                     method: 'GET',
                     headers: {
                          Authorization: `Bear ${token}`
                     }
-               }).then((data)=>{
+               }).then(()=>{
+                    setLoad(<></>);
                     window.location.replace('/trang-chu');
                }).catch(()=>{
+                    setLoad(<></>);
                     window.location.replace('/');
                })
           }
@@ -61,6 +66,7 @@ function Authenticate(){
           let username = usertxt.current.value;
           let password = passtxt.current.value;
           if(username && password){
+               setLoad(Loader);
                axios({
                     url:'https://socbe.herokuapp.com/user-login',
                     method:'POST',
@@ -70,6 +76,7 @@ function Authenticate(){
                     }
                })
                .then((data)=>{
+                    setLoad(<></>);
                     let response = data.data.response;
                     if(response.logged_in){
                          let day = '';
@@ -79,10 +86,12 @@ function Authenticate(){
                          setCookie('_token',response.token,day);
                          window.location.replace('/trang-chu');
                     }else{
+                         setLoad(<></>);
                          alert('Tên đăng nhập hoặc mật khẩu không chính xác');
                     }
                })
           }else{
+               setLoad(<></>);
                alert('Tên đăng nhập và mật khẩu không được để rỗng');
           }
      }
@@ -129,6 +138,7 @@ function Authenticate(){
 
      return (
           <>
+          {load}
           <div className="w-100 page-container">
                <div className="auth-container container d-flex justify-content-center align-items-center">
                     <div className="shop-title w-50 justify-content-center align-items-start flex-column d-flex">

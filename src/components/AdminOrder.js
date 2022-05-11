@@ -3,11 +3,13 @@ import {useState,useRef} from 'react';
 import {useEffect} from 'react';
 import axios from 'axios';
 import {getCookie, eraseCookie} from './Cookie'
+import Loader from './Loader';
 
 function AdminOrder(){
      let [list,setList] = useState([]);
      let [cart_order,setCart_Order] = useState([]);
      let [cart,setCart] = useState([]);
+     let [load,setLoad] = useState(<></>);
      let stt = useRef();
 
      let logout = ()=>{
@@ -17,6 +19,7 @@ function AdminOrder(){
      useEffect(()=>{
           let token = getCookie('_mntoken');
           if(token){
+          setLoad(Loader);
           axios({
                url:'https://socbe.herokuapp.com/check-permission',
                method: 'GET',
@@ -60,14 +63,13 @@ function AdminOrder(){
                          }
                     })
                     .then((data)=>{
+                         setLoad(<></>);
                          setCart_Order(data.data.order_carts);
                     })
                     .catch(()=>{
-     
                     })
                })
                .catch(()=>{
-
                })
           })
           .catch(()=>{
@@ -78,6 +80,7 @@ function AdminOrder(){
      },[]);
 
      let change_status = (product)=>{
+          setLoad(Loader);
           axios({
                url: 'https://socbe.herokuapp.com/change-status',
                method: 'PATCH',
@@ -89,6 +92,7 @@ function AdminOrder(){
                     status: stt.current.value
                }
           }).then(()=>{
+               setLoad(<></>);
                window.location.reload();
           }).catch(()=>{
                alert('error')
@@ -123,6 +127,7 @@ function AdminOrder(){
 
      return(
           <>
+          {load}
           <div className="w-100 admin-home">
                <nav className="w-100">
                     <div className="container d-flex justify-content-between align-items-center">
