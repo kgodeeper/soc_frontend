@@ -166,7 +166,7 @@ function AdminOrder(){
                               </ul>
                          </div>
                          <ul className="navbar-nav">
-                              <li className="nav-item" onClick={()=>logout}>
+                              <li className="nav-item" onClick={()=>logout()}>
                                    <a className="nav-link d-block">
                                         <b>Đăng xuất</b>
                                    </a>
