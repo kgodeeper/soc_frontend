@@ -139,6 +139,7 @@ function Order(){
                          window.location.replace('/don-hang');
                     }
                }else{
+                    setLoad(<></>);
                     alert('Số lượng sản phẩm vượt quá số lượng còn lại');
                }
           }).catch(()=>{

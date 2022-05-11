@@ -88,6 +88,8 @@ function Product(){
           }).catch(()=>{
                window.location.replace('/xac-thuc');
           })
+          }else{
+               window.location.replace('/trang-chu');
           }
      },[])
 

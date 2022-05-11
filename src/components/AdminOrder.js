@@ -79,7 +79,7 @@ function AdminOrder(){
           }
      },[]);
 
-     let change_status = (product)=>{
+     let change_status = (product,event)=>{
           setLoad(Loader);
           axios({
                url: 'https://socbe.herokuapp.com/change-status',
@@ -89,7 +89,7 @@ function AdminOrder(){
                },
                data:{
                     product,
-                    status: stt.current.value
+                    status: event.target.value
                }
           }).then(()=>{
                setLoad(<></>);
@@ -113,7 +113,7 @@ function AdminOrder(){
                          item.order_status == 3 ? "Hoàn thành":null}</td>
                     <td>
                          {item.order_status < 3 ?
-                         <select defaultValue={item.order_status} onChange={()=>change_status(item.id)} ref={stt}>
+                         <select defaultValue={item.order_status} onChange={(e)=>change_status(item.id,e)} ref={stt}>
                               <option value={0}>Chờ xác nhận</option>
                               <option value={1}>Xác nhận</option>
                               <option value={2}>Đang giao</option>
