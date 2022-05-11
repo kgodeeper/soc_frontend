@@ -17,10 +17,8 @@ function Home(){
                headers: {
                     Authorization: `Bear ${token}`
                }
-          }).then((data)=>{
-               if(data.data.position == 0){
-                    setHome(()=><CustomerHome/>);
-               }
+          }).then(()=>{
+               setHome(CustomerHome);
           }).catch(()=>{
                window.location.replace('/');
           })
